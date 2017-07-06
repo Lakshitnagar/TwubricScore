@@ -12,19 +12,15 @@ Here is simple web app that allows a Twitter user to review his followers, view 
 
 (Twubric)
 
-Criteria
-Weightage
-Scale
-Friends
-2
-High, Average, Low
-Influence
-4
-High, Average, Low
-Chirpy
-4
-High, Average, Low
+## Criteria
+
+Friends (2 Weightage)
+
+Influence (4 Weightage)
+
+Chirpy (4 Weightage)
+
 
 # What's in the app
-Right now only UI is build using bootstrap and AngularJS.
+Right now only UI is build using bootstrap, AngularJS and isotope.js .
 Planning to link Twitter account of user.
