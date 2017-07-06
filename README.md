@@ -25,6 +25,6 @@ Chirpy
 4
 High, Average, Low
 
-#What's in app
+# What's in the app
 Right now only UI is build using bootstrap and AngularJS.
 Planning to link Twitter account of user.
