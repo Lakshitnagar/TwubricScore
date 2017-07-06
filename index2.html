@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Angular Isotope</title>
+  <meta name="description" content=""/>
+  <meta name="viewport" content="width=device-width"/>
+  <link rel="stylesheet" href="styles/main.css"/>
+  <link rel="stylesheet" href="styles/style.css"/>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>   
+<body ng-app="angular-isotope-demo" ng-controller="ctrl" ng-cloak class="ng-cloak">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <h1>Review  your twitter followers<small>(Twubric Score)</small></h1>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Sort by</h4>
+            <div class="btn-group" opt-kind ok-key="sortBy">
+
+              <button ng-class="{'btn-success': sortby==='username'}" ng-hide="usernameOrder" ng-click="username($event)" opt-ascending="false" type="button" class="btn btn-default active" ok-sel=".username">
+                Username <span ng-show="sortby==='username'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </button>
+              <button ng-class="{'btn-success': sortby==='username'}" ng-hide="!usernameOrder" ng-click="username($event)" opt-ascending="true" type="button" class="btn btn-default" ok-sel=".username">
+                Username <span ng-show="sortby==='username'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+
+              <button ng-class="{'btn-success': sortby==='twubric'}" ng-hide="twubricOrder" ng-click="twubric($event)" opt-ascending="false" type="button" class="btn btn-default" ok-sel=".twubric" ok-type="integer">
+                Twubric <span ng-show="sortby==='twubric'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </button>
+              <button ng-class="{'btn-success': sortby==='twubric'}" ng-show="twubricOrder" ng-click="twubric($event)" opt-ascending="true" type="button" class="btn btn-default" ok-sel=".twubric" ok-type="integer">
+                Twubric <span ng-show="sortby==='twubric'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+
+              <button ng-class="{'btn-success': sortby==='friends'}" ng-hide="friendsOrder" ng-click="friends($event)" opt-ascending="false" type="button" class="btn btn-default" ok-sel=".friends" ok-type="integer">
+                Friends <span ng-show="sortby==='friends'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </button>
+              <button ng-class="{'btn-success': sortby==='friends'}" ng-show="friendsOrder" ng-click="friends($event)" opt-ascending="true" type="button" class="btn btn-default" ok-sel=".friends" ok-type="integer">
+                Friends <span ng-show="sortby==='friends'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+
+              <button ng-class="{'btn-success': sortby==='influence'}" ng-hide="influenceOrder" ng-click="influence($event)" opt-ascending="false" type="button" class="btn btn-default" ok-sel=".influence" ok-type="integer">
+                Influence <span ng-show="sortby==='influence'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </button>
+              <button ng-class="{'btn-success': sortby==='influence'}" ng-show="influenceOrder" ng-click="influence($event)" opt-ascending="true" type="button" class="btn btn-default" ok-sel=".influence" ok-type="integer">
+                Influence <span ng-show="sortby==='influence'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+
+              <button ng-class="{'btn-success': sortby==='chirpiness'}" ng-hide="chirpinessOrder" ng-click="chirpiness($event)" opt-ascending="false" type="button" class="btn btn-default" ok-sel=".chirpiness" ok-type="integer">
+                Chirpiness <span ng-show="sortby==='chirpiness'" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </button>
+              <button ng-class="{'btn-success': sortby==='chirpiness'}" ng-show="chirpinessOrder" ng-click="chirpiness($event)" opt-ascending="true" type="button" class="btn btn-default" ok-sel=".chirpiness" ok-type="integer">
+                Chirpiness <span ng-show="sortby==='chirpiness'" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Filter by:</h4>
+
+          </div>
+        </div>
+
+          <p></p>
+
+
+          <div class="row">
+            <div class="col-md-3">
+              <strong>Start Date:</strong> <input type="date" name="" ng-model="date.startDate" min="{{date.minDate}}" max="{{date.endDate}}" ng-change="updateStartDate(date.startDate)">
+              <br>
+            </div>
+            <div class="col-md-3">
+              <strong>End Date: </strong> <input type="date" name="" ng-model="date.endDate" min="{{date.startDate}}" max="{{date.maxDate}}" ng-change="updateEndDate(date.endDate)">
+              <br>
+
+            </div>
+            <div class="col-md-6 btn-group" opt-kind ok-key="filter">
+              <button type='button' class='btn btn-default' ok-sel="*">
+                <strong>Reset</strong><br>
+                <b>{{minDate|date}}</b> to <b>{{maxDate|date}}</b>
+              </button>
+
+              <button class="btn btn-default" ok-sel=".dateFilter">
+                <strong>Filter</strong><br>
+                <b>{{startDate|date}}</b> to <b>{{endDate|date}}</b>
+              </button>
+            </div>
+          </div>
+
+
+        <!-- ISOTOPECONTAINER -->
+        <div class="row">
+          <ul id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
+                <div ng-repeat="user in users" isotope-item class="element-item user-item" ng-class="{'dateFilter':user.join_date>=startDate&&user.join_date<=endDate}">
+                  <div class="container-fluid cardHead">
+                    <div class="row">
+                      <div class="col-md-7 username">
+                        <img src="images/twitter_logo.png" style="height: 30px;">
+                        <span class="username">{{user.username}}</span>
+                      </div>
+                      <div class="col-md-5 twubric">{{user.twubric.total}}</div>
+                    </div>
+                  </div>
+                  <div class="container-fluid cardBody">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="friends">{{user.twubric.friends}}</div>
+                        <div>Friends</div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="influence">{{user.twubric.influence}}</div>
+                        <div>Influence</div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="chirpiness">{{user.twubric.chirpiness}}</div>
+                        <div>Chirpiness</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="container-fluid cardFooter">
+                    <div class="row">
+                      <div class="col-md-6 join_date">{{user.join_date|date}}</div>
+                      <div class="col-md-6 remove">
+                        <button class="btn btn-danger" ng-click="removeItem($index)">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ul>
+        </div>
+      </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/vendor/jquery-2.1.0.min.js"></script>
+  <script src="scripts/vendor/angular.min.js"></script>
+  <script src="scripts/vendor/jquery.isotope.js"></script>
+  <script src="scripts/angular-isotope.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
